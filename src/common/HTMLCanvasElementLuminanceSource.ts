@@ -13,6 +13,13 @@ export class HTMLCanvasElementLuminanceSource extends LuminanceSource {
     const canvasCtx = canvas.getContext('2d');
     if (!canvasCtx) { throw new Error('Couldn\'t get canvas context.'); }
     const imageData = canvasCtx.getImageData(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      imageData.data[i] = 255 - imageData.data[i]; // red
+      imageData.data[i + 1] = 255 - imageData.data[i + 1]; // green
+      imageData.data[i + 2] = 255 - imageData.data[i + 2]; // blue
+    }
+
     return HTMLCanvasElementLuminanceSource.toGrayscaleBuffer(imageData.data, canvas.width, canvas.height);
   }
 
