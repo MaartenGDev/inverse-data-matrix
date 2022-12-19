@@ -20,6 +20,13 @@ export class HTMLCanvasElementLuminanceSource extends LuminanceSource {
       imageData.data[i + 2] = 255 - imageData.data[i + 2]; // blue
     }
 
+    const debugCanvas = document.querySelector('#debugCanvas') as HTMLCanvasElement;
+
+    if(debugCanvas){
+      debugCanvas.getContext('2d').putImageData(imageData, 0,0);
+    }
+
+
     return HTMLCanvasElementLuminanceSource.toGrayscaleBuffer(imageData.data, canvas.width, canvas.height);
   }
 
